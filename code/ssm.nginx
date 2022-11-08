@@ -1,0 +1,11 @@
+server {
+    listen 80;
+
+    location /static {
+        alias /var/lib/tomcat9/webapps/static;
+    }
+
+    location / {
+        proxy_pass http://localhost:8080;
+    }
+}

@@ -1,0 +1,11 @@
+pluginManagement {
+    repositories {
+        maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+
+rootProject.name = 'ssm'

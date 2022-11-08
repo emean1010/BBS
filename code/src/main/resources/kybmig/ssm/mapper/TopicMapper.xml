@@ -1,0 +1,219 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 和 java mapper 的类名一样，从包名开始打，有自动补全-->
+<mapper namespace="kybmig.ssm.mapper.TopicMapper">
+    <!-- resultType 和 mapper 中的方法返回值一样，不能省，从包名开始打，有自动补全-->
+    <!--  里面的 sql 语句，有自动补全,要配置 ide 的 datasource -->
+    <resultMap id="selectAllWithLastComment" type="kybmig.ssm.model.TopicModel" >
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="createdTime" column="createdTime" />
+        <result property="commentCount" column="c_count" />
+        <association property="user" javaType="kybmig.ssm.model.UserModel">
+            <result property="username" column="t_username" />
+            <result property="avatar" column="t_avatar" />
+        </association>
+        <association property="lastComment" javaType="kybmig.ssm.model.TopicCommentModel" >
+            <result property="id" column="c_id" />
+            <result property="createdTime" column="c_createdTime" />
+            <association property="user" javaType="kybmig.ssm.model.UserModel">
+                <result property="username" column="c_username" />
+                <result property="avatar" column="c_avatar" />
+            </association>
+        </association>
+    </resultMap>
+
+    <select id="selectAll" resultMap="selectAllWithLastComment">
+        select
+            Topic.id,
+            Topic.title,
+            Topic.createdTime,
+            count(TopicComment.id) as c_count,
+            t_user.username as t_username,
+            t_user.avatar as t_avatar,
+            max(TopicComment.id) as c_id,
+            TopicComment.createdTime as c_createdTime,
+            c_user.username as c_username,
+            c_user.avatar as c_avatar
+
+        from Topic
+                 left join TopicComment
+                           on Topic.id = TopicComment.topicId
+                 join User as t_user
+                      on t_user.id = Topic.userId
+                 left join User as c_user
+                           on c_user.id = TopicComment.userId
+
+        GROUP BY topic.id
+        order by topic.createdTime desc
+    </select>
+
+    <!-- 传参数方式1，直接传入一个基本类型 int，这个 int 会被绑定到 #{id} -->
+    <select id="selectOne" resultType="kybmig.ssm.model.TopicModel">
+        SELECT * FROM ssm.Topic WHERE id = #{id}
+    </select>
+
+    <select id="selectAllByBoardId" resultMap="selectAllWithLastComment">
+        select
+            Topic.id,
+            Topic.title,
+            Topic.createdTime,
+            count(TopicComment.id) as c_count,
+            t_user.username as t_username,
+            t_user.avatar as t_avatar,
+            max(TopicComment.id) as c_id,
+            TopicComment.createdTime as c_createdTime,
+            c_user.username as c_username,
+            c_user.avatar as c_avatar
+
+        from Topic
+                 left join TopicComment
+                           on Topic.id = TopicComment.topicId
+                 join User as t_user
+                      on t_user.id = Topic.userId
+                 left join User as c_user
+                           on c_user.id = TopicComment.userId
+
+        WHERE boardId = #{boardId}
+        GROUP BY topic.id
+        order by topic.createdTime desc
+    </select>
+
+    <!-- 传参方式2，传入一个对象。content 代表这个对象的 content 属性，注意这个对象要有 getter setter -->
+    <!-- useGeneratedKeys keyProperty 当我传入一个对象的时候，这两个属性可以把数据库创建的 id 赋值给这个对象 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ssm.Topic (content, title, userId, boardId, createdTime, updatedTime) VALUES (#{content}, #{title}, #{userId}, #{boardId}, #{createdTime}, #{updatedTime})
+    </insert>
+    
+    <update id="update">
+        UPDATE ssm.Topic SET content = #{content}, title=#{title} WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM ssm.Topic WHERE id = #{id}
+    </delete>
+
+    <resultMap id="selectOneWithCommentsMap" type="kybmig.ssm.model.TopicModel" >
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <collection property="comments" ofType="kybmig.ssm.model.TopicCommentModel" >
+            <id property="id" column="c_id" />
+            <result property="content" column="c_content" />
+        </collection>
+
+    </resultMap>
+
+    <select id="selectOneWithComments" resultMap="selectOneWithCommentsMap">
+        select
+            Topic.id,
+            Topic.title,
+            Topic.content,
+            TopicComment.id as c_id,
+            TopicComment.content as c_content
+
+        from  Topic
+                  join TopicComment
+                       on Topic.id = TopicComment.topicId
+        where Topic.id = #{id}
+    </select>
+
+
+    <resultMap id="selectOneWithCommentsAndUserMap" type="kybmig.ssm.model.TopicModel" >
+        <id property="id" column="id" />
+        <result property="userId" column="userId" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="createdTime" column="createdTime" />
+        <result property="updatedTime" column="updatedTime" />
+        <collection property="comments" ofType="kybmig.ssm.model.TopicCommentModel" >
+            <id property="id" column="c_id" />
+            <result property="userId" column="c_user_id" />
+            <result property="content" column="c_content" />
+            <result property="createdTime" column="c_createdTime" />
+            <result property="updatedTime" column="c_updatedTime" />
+            <association property="user" javaType="kybmig.ssm.model.UserModel">
+                <result property="username" column="u_username" />
+            </association>
+        </collection>
+
+    </resultMap>
+
+    <select id="selectOneWithCommentsAndUser" resultMap="selectOneWithCommentsAndUserMap">
+        select
+            Topic.id,
+            Topic.userId,
+            Topic.title,
+            Topic.content,
+            Topic.createdTime,
+            Topic.updatedTime,
+            TopicComment.id as c_id,
+            TopicComment.userId as c_user_id,
+            TopicComment.content as c_content,
+            TopicComment.createdTime as c_createdTime,
+            TopicComment.updatedTime as c_updatedTime,
+            User.username as u_username
+
+        from  Topic
+                  left join TopicComment
+                       on Topic.id = TopicComment.topicId
+                  left join User
+                       on User.id = TopicComment.userId
+
+        where Topic.id = #{id}
+    </select>
+
+    <select id="selectAllByCreator" resultMap="selectAllWithLastComment">
+        select
+            Topic.id,
+            Topic.title,
+            Topic.createdTime,
+            count(TopicComment.id) as c_count,
+            t_user.username as t_username,
+            t_user.avatar as t_avatar,
+            max(TopicComment.id) as c_id,
+            TopicComment.createdTime as c_createdTime,
+            c_user.username as c_username,
+            c_user.avatar as c_avatar
+
+        from Topic
+            left join TopicComment
+                on Topic.id = TopicComment.topicId
+            join User as t_user
+                on t_user.id = Topic.userId
+            left join User as c_user
+                on c_user.id = TopicComment.userId
+
+        where Topic.userId = #{userId}
+        GROUP BY topic.id
+        order by topic.createdTime desc
+    </select>
+
+    <select id="selectAllByCommentCreator" resultMap="selectAllWithLastComment">
+        select
+            Topic.id,
+            Topic.title,
+            Topic.createdTime,
+            count(TopicComment.id) as c_count,
+            t_user.username as t_username,
+            t_user.avatar as t_avatar,
+            max(TopicComment.id) as c_id,
+            TopicComment.createdTime as c_createdTime,
+            c_user.username as c_username,
+            c_user.avatar as c_avatar
+
+        from Topic
+                 left join TopicComment
+                           on Topic.id = TopicComment.topicId
+                 join User as t_user
+                      on t_user.id = Topic.userId
+                 left join User as c_user
+                           on c_user.id = TopicComment.userId
+
+        where TopicComment.userId = #{userId}
+        GROUP BY topic.id
+        order by topic.createdTime desc
+    </select>
+
+</mapper>
