@@ -3,7 +3,7 @@
   "name": "粤康码",
   "icons": [
     {
-      "src": "static/yss.jpeg",
+      "src": "health/ykm/static/yss.jpeg",
       "type": "image/jpeg",
       "sizes": "246x246"
     }

@@ -1,10 +1,13 @@
-<title>核酸检测记录</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-<meta name="theme-color" content="#ffffff">
+<!doctypehtml><title>核酸检测记录</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width,height=device-height,viewport-fit=cover">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="/static/manifest.json">
+<link rel="icon" type="image/jpeg" href="/static/health/ykm/static/yss.jpeg">
+<link rel="apple-touch-icon" sizes="246x246" href="/static/health/ykm/static/yss.jpeg">
 <link rel="stylesheet" href="/static/health/ykm/detail.css">
 <link rel="stylesheet" href="/static/health/common/nav.css">
-<link rel="manifest" href="/static/health/ykm/manifest.json">
 <script src="/static/health/common/base.js"></script>
 <body>
 <view class="weui-navigation-bar">
@@ -15,13 +18,13 @@
                 <view bindtap="back" class="weui-navigation-bar__button weui-navigation-bar__btn_goback"></view>
             </view>
         </view>
-        <view class="weui-navigation-bar__center" style="font-weight:700">
+        <view class="weui-navigation-bar__center">
             <text>核酸检测记录</text>
         </view>
         <view class="weui-navigation-bar__right"></view>
     </view>
 </view>
-<div class="capsule" onclick="window.navigateHome()">
+<div class="capsule" onclick="navigateHome()">
     <svg class="capsule-menu-icon" viewBox="0 0 64 28" xmlns="http://www.w3.org/2000/svg">
         <circle cx="32" cy="14" r="9.5"/>
         <circle cx="54" cy="14" r="6"/>
@@ -162,4 +165,4 @@
     <view style="height:20vw"></view>
     <view class="province_btn" onclick='window.location.href="/sz"'>查询外省核酸并上传至粤康码</view>
 </view>
-<script>setStaticTime(".sample-time", 0, 16), setStaticTime(".test-time", 0, 16), addStorageField("_name", ".member-name", "名字", "周益民"), addStorageField("_test_institution", ".test-institution", "检测机构", "广州金域医学检验中心")</script>
+<script>setStaticTime(".sample-time", 0, 16), setStaticTime(".test-time", 0, 16), addStorageField("_name", ".member-name", "名字", "周益民"), addStorageField("_test_institution", ".test-institution", "检测机构", "深圳海普洛斯医学检验实验室")</script>

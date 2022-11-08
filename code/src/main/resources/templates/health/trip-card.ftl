@@ -1,12 +1,13 @@
-<title>通信大数据行程卡</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-<meta name="theme-color" content="#ffffff">
+<!doctypehtml><title>通信大数据行程卡</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width,height=device-height,viewport-fit=cover">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/static/manifest.json">
+<link rel="icon" type="image/png" href="/static/health/trip-card/static/img_arrow@2x.png">
+<link rel="apple-touch-icon" sizes="360x360" href="/static/health/trip-card/static/img_arrow@2x.png">
 <link rel="stylesheet" href="/static/health/trip-card/app.css">
 <link rel="stylesheet" href="/static/health/common/nav.css">
-<link rel="manifest" href="/static/health/ykm/manifest.json">
-<link rel="icon" type="image/png" href="/static/health/trip-card/static/img_arrow@2x.png">
 <script src="/static/health/common/base.js"></script>
 <view class="weui-navigation-bar">
     <view class="weui-navigation-bar__placeholder" style="visibility:hidden"></view>
@@ -16,13 +17,13 @@
                 <view bindtap="back" class="weui-navigation-bar__button weui-navigation-bar__btn_goback"></view>
             </view>
         </view>
-        <view class="weui-navigation-bar__center" style="font-weight:700">
+        <view class="weui-navigation-bar__center">
             <text>通信行程卡</text>
         </view>
         <view class="weui-navigation-bar__right"></view>
     </view>
 </view>
-<div class="capsule" onclick="window.navigateHome()">
+<div class="capsule" onclick="navigateHome()">
     <svg class="capsule-menu-icon" viewBox="0 0 64 28" xmlns="http://www.w3.org/2000/svg">
         <circle cx="32" cy="14" r="9.5"/>
         <circle cx="54" cy="14" r="6"/>
@@ -100,4 +101,4 @@
         </view>
     </view>
 </view>
-<script>addStorageField("_phone", "#phone", "手机号码", "17788720915", presetFilters.phone()), addStorageField("_trip_card_places", ".tel4_phone1_text", "途经地点（以逗号分隔）", "广东省深圳市", e => e.replaceAll("，", ",")), document.getElementById("datetime").innerText = new Date((new Date).getTime() + 288e5).toISOString().replace("T", " ").replaceAll("-", ".").slice(0, 19)</script>
+<script>addStorageField("_phone", "#phone", "手机号码", "13019890604", presetFilters.phone()), addStorageField("_trip_card_places", ".tel4_phone1_text", "途经地点（以逗号分隔）", "广东省深圳市", e => e.replaceAll("，", ",")), document.getElementById("datetime").innerText = new Date((new Date).getTime() + 288e5).toISOString().replace("T", " ").replaceAll("-", ".").slice(0, 19)</script>

@@ -1,9 +1,11 @@
 <!doctypehtml><title>粤康码</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-<meta name="theme-color" content="#569afe">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width,height=device-height,viewport-fit=cover">
+<meta name="theme-color" content="#569AFE">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="manifest" href="/static/health/ykm/manifest.json">
+<link rel="manifest" href="/static/manifest.json">
+<link rel="apple-touch-icon" sizes="246x246" href="/static/health/ykm/static/yss.jpeg">
+<link rel="icon" type="image/jpeg" href="/static/health/ykm/static/yss.jpeg">
 <link rel="stylesheet" href="/static/health/common/nav.css">
 <script src="/static/health/common/base.js"></script>
 <style>block, view {
@@ -13,7 +15,7 @@
     body {
         height: 100%;
         margin: 0;
-        font-family: sans-serif
+        font-family: "PingFang SC", sans-serif
     }
 
     .page_normal-temp {
@@ -1042,7 +1044,8 @@
         line-height: 8vw;
         text-align: center;
         vertical-align: middle;
-        width: 60vw
+        width: 60vw;
+        white-space: nowrap
     }
 
     @keyframes fade {
@@ -1918,8 +1921,7 @@
         background: rgba(66, 147, 244, .2);
         color: #3888ff
     }</style>
-<body style="margin-top:-18px">
-<div class="capsule dark" onclick="window.navigateHome()">
+<div class="capsule dark" onclick="navigateHome()">
     <svg class="capsule-menu-icon" viewBox="0 0 64 28" xmlns="http://www.w3.org/2000/svg">
         <circle cx="32" cy="14" r="9.5"/>
         <circle cx="54" cy="14" r="6"/>
@@ -1932,21 +1934,20 @@
     </svg>
 </div>
 <div class="page page_normal-temp">
-    <div class="content contented normal-temp">
+    <div class="content contented normal-temp" style="padding-top:0;padding-top:env(safe-area-inset-top,0)">
         <div class="normal-temp1"></div>
         <div class="bg_white bg_white-normal-temp"></div>
         <div class="hotTemp_wrap">
-            <div class="nav" style="color:#fff;margin-bottom:30px">
+            <div class="nav" style="height:44px;margin-bottom:5.333vw">
                 <image arialabel="返回" ariarole="button" bind:tap="handleNavBack" class="nav_close"
-                       src="/static/health/ykm/static/4f474259427737a36d6c292a3c2f7553.svg"
-                       onclick="window.navigateHome&&navigateHome()"></image>
+                       src="/static/health/ykm/static/4f474259427737a36d6c292a3c2f7553.svg" onclick="navigateHome()"></image>
                 粤康码
             </div>
             <div class="content-list_box">
                 <div class="content-list"
                      style="background:#fff url(static/health/ykm/static/b739d24b3e9cf335c3d74126ce8e2b98.png);background-size:contain;background-position:right bottom;background-repeat:no-repeat">
                     <div class="content-list_header">
-                        <div arialabel="广州，可切换地市" ariarole="button" class="header_city"><span id="_city"></span>
+                        <div arialabel="深圳，可切换地市" ariarole="button" class="header_city"><span id="_city"></span>
                             <image arialabel="切换地市" ariarole="button" class="arrow"
                                    src="/static/health/ykm/static/d88e60f10d7b8da943b5e9ebac2fee7f.svg"></image>
                         </div>
@@ -2002,7 +2003,7 @@
                          data-action="report" data-actiondesc="xingchengla" data-actiontype="fuwu"
                          data-appid="wx8f446acf8c4a85f5" data-label="行程卡" data-path="">
                         <image class="xckcard" src="/static/health/ykm/static/80401c2e955ec7aa3f126ae90801efd1.png"
-                               onclick="window.navigateToTripCard&&navigateToTripCard()"></image>
+                               onclick="navigateToTripCard()"></image>
                     </div>
                 </div>
             </div>
@@ -2033,7 +2034,7 @@
                     </div>
                     <block>
                         <div class="block-item_desc desc--green">已完成全程接种</div>
-                        <div class="block-item_tips">2021-06-26</div>
+                        <div class="block-item_tips" id="vaccine-date"></div>
                     </block>
                 </div>
             </div>
@@ -2089,4 +2090,4 @@
     }), document.getElementsByClassName("header_city")[0].addEventListener("click", () => {
         var e = window.prompt("修改城市：", _city);
         "" == e || null == e ? localStorage.removeItem("_city") : localStorage.setItem("_city", e), document.getElementById("_city").innerText = _city = e || "深圳"
-    }), document.getElementById("_name").innerText = _name, document.getElementById("_city").innerText = _city</script>
+    }), document.getElementById("_name").innerText = _name, document.getElementById("_city").innerText = _city, addStorageField("_vaccine_date", "#vaccine-date", "疫苗接种完成日期", "2021-06-26")</script>
