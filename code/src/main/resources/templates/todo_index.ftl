@@ -12,7 +12,6 @@
 </form>
 
 <div>
-
     <#list todos as t>
     <h3>${t.id} : ${t.content}</h3>
     <a href="/todo/edit?id=${t.id}">编辑</a>

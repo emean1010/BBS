@@ -2384,16 +2384,33 @@
         </view>
     </view>
 </view>
-<script>const covid_test_time = new Date((new Date).getTime() + 60 * (300 - Math.floor(480 * Math.random())) * 1e3).toISOString().replace("T", " ").slice(0, 16);
+<script>
+    var placeArray =[];
+    var placeIndex = 0;
+    <#list places as item>
+        placeArray.push("${item.content}");
+    </#list>
+    var _place = placeArray[placeIndex];
+    var placeUpdate = function() {
+        placeIndex += 1;
+        if (placeIndex >= placeArray.length) {
+            placeIndex = 0;
+        }
+        _place = placeArray[placeIndex]
+        console.log(_place, placeIndex, placeArray)
+    }
+
+    const covid_test_time = new Date((new Date).getTime() + 60 * (300 - Math.floor(480 * Math.random())) * 1e3).toISOString().replace("T", " ").slice(0, 16);
     document.getElementById("covid-test-time").innerText = covid_test_time, document.getElementById("_time").innerText = new Date((new Date).getTime() + 288e5).toISOString().replace("T", " ").slice(0, 16);
-    let _name = localStorage.getItem("_name") || "周*民", _place = localStorage.getItem("_place") || "大冲商务中心-D座南门",
-        _place_id = localStorage.getItem("_place_id") || "11**640";
+    let _name = localStorage.getItem("_name") || "周*民";
+    let _place_id = localStorage.getItem("_place_id") || "11**640";
+
     document.getElementById("_name").addEventListener("click", () => {
         var e = window.prompt("修改名字：", _name);
         "" == e || null == e ? localStorage.removeItem("_name") : localStorage.setItem("_name", e), document.getElementById("_name").innerText = _name = e || "周*民"
     }), document.getElementById("_place").addEventListener("click", () => {
-        var e = window.prompt("修改地点：", _place);
-        "" == e || null == e ? localStorage.removeItem("_place") : localStorage.setItem("_place", e), document.getElementById("_place").innerText = _place = e || "大冲商务中心-D座南门"
+        placeUpdate();
+        document.getElementById("_place").innerText = _place;
     }), document.getElementById("_place_id").addEventListener("click", () => {
         let e = window.prompt("修改地点：", _place_id);
         "" == e || null == e ? localStorage.removeItem("_place_id") : (e = e.slice(0, 2) + "**" + e.slice(-3), localStorage.setItem("_place_id", e)), document.getElementById("_place_id").innerText = _place_id = e || "11**640"

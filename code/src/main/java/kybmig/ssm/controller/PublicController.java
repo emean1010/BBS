@@ -2,9 +2,11 @@ package kybmig.ssm.controller;
 
 import kybmig.ssm.Utility;
 import kybmig.ssm.model.BoardModel;
+import kybmig.ssm.model.TodoModel;
 import kybmig.ssm.model.TopicModel;
 import kybmig.ssm.model.UserModel;
 import kybmig.ssm.service.BoardService;
+import kybmig.ssm.service.TodoService;
 import kybmig.ssm.service.TopicService;
 import kybmig.ssm.service.UserService;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -24,15 +26,17 @@ public class PublicController {
     UserService userService;
     TopicService topicService;
     BoardService boardService;
+    TodoService todoService;
     private AsyncTask mailer;
     private RedisTemplate<String, String> template;
 
-    public PublicController(UserService userService, BoardService boardService, TopicService topicService, AsyncTask mailer, RedisTemplate<String, String> template) {
+    public PublicController(UserService userService, BoardService boardService, TopicService topicService, AsyncTask mailer, RedisTemplate<String, String> template, TodoService todoService) {
         this.userService = userService;
         this.topicService = topicService;
         this.boardService = boardService;
         this.mailer = mailer;
         this.template = template;
+        this.todoService = todoService;
     }
 
     @GetMapping("/")
@@ -175,7 +179,9 @@ public class PublicController {
 
     @GetMapping("/ch")
     public ModelAndView checkinView() {
+        ArrayList<TodoModel> todos = todoService.all();
         ModelAndView m = new ModelAndView("health/checkin");
+        m.addObject("places", todos);
         return m;
     }
 

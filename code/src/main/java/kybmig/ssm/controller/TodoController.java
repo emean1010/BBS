@@ -22,18 +22,9 @@ public class TodoController {
         this.todoService = todoService;
     }
 
-
-//    @PostMapping("/todo/add")
-//    public String add(String content) {
-//        TodoModel todo = todoService.add(content);
-//        Utility.log("todo add id %s", todo.getId());
-//        return "redirect:/todo";
-//    }
-
     @PostMapping("/todo/add")
     public ModelAndView add(String content) {
         TodoModel todo = todoService.add(content);
-//        TodoModel todo = todoService.addBySQL(content);
         Utility.log("todo add id %s", todo.getId());
         ModelAndView mv = new ModelAndView("redirect:/todo");
         return mv;
@@ -46,11 +37,9 @@ public class TodoController {
         return "redirect:/todo";
     }
 
-
     @GetMapping("/todo/edit")
     public ModelAndView edit(int id) {
         TodoModel todo = todoService.findById(id);
-//        TodoModel todo = todoService.findByIdBySQL(id);
         ModelAndView m = new ModelAndView("todo_edit");
         m.addObject("todo", todo);
         return m;
@@ -59,7 +48,6 @@ public class TodoController {
     @PostMapping("/todo/update")
     public String updateMapper(int id, String content) {
         todoService.update(id, content);
-//        todoService.updateBySQL(id, content);
         return "redirect:/todo";
     }
 
@@ -67,7 +55,6 @@ public class TodoController {
     public ModelAndView index() {
         Utility.log("index start");
         ArrayList<TodoModel> todos = todoService.all();
-//        ArrayList<TodoModel> todos = todoService.allBySQL();
         ModelAndView m = new ModelAndView("todo_index");
         m.addObject("todos", todos);
         Utility.log("index end");
