@@ -8,9 +8,9 @@
       "sizes": "246x246"
     }
   ],
-  "id": "index-simulator",
-  "start_url": "/sz",
-  "display": "fullscreen",
+  "id": "ilovexjp-ykm-simulator",
+  "start_url": ".",
+  "display": "standalone",
   "scope": "/",
   "description": "粤康码模拟"
 }

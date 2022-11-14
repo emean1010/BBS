@@ -1,17 +1,12 @@
 package kybmig.ssm.service;
 
-
-import com.mysql.cj.jdbc.MysqlDataSource;
 import kybmig.ssm.Utility;
 import kybmig.ssm.mapper.TodoMapper;
-import kybmig.ssm.model.ModelFactory;
 import kybmig.ssm.model.TodoModel;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
+
 
 @Service
 public class TodoService {
@@ -38,7 +33,6 @@ public class TodoService {
         mapper.updateTodo(m);
     }
 
-    
     public void deleteById(Integer id) {
         mapper.deleteTodo(id);
     }
