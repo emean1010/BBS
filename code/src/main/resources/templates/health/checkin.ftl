@@ -1,6 +1,7 @@
 <!doctypehtml><title>粤康码场所通行</title>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<meta name="viewport" content="width=device-width,height=device-height,viewport-fit=cover">
+<meta name="viewport"
+      content="width=device-width,height=device-height,viewport-fit=cover,initial-scale=1,maximum-scale=1,user-scalable=0">
 <meta name="theme-color" content="#3A89FF">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="/static/manifest.json">
@@ -2272,19 +2273,23 @@
 
     @-webkit-keyframes bg-scrolling-reverse {
         0% {
-            top: 13.333vw
+            top: 13.333vw;
+            top: calc(13.333vw + env(safe-area-inset-top, 0))
         }
         to {
-            top: -66.667vw
+            top: -66.667vw;
+            top: calc(-66.667vw + env(safe-area-inset-top, 0))
         }
     }
 
     @keyframes bg-scrolling-reverse {
         0% {
-            top: 13.333vw
+            top: 13.333vw;
+            top: calc(13.333vw + env(safe-area-inset-top, 0))
         }
         to {
-            top: -66.667vw
+            top: -66.667vw;
+            top: calc(-66.667vw + env(safe-area-inset-top, 0))
         }
     }</style>
 <div class="capsule dark" onclick="navigateHome()">
@@ -2306,7 +2311,8 @@
         粤康码场所通行
     </view>
     <view class="main" style="background-color:#3a89ff">
-        <image class="move" mode="widthFix" src="/static/health/ykm/static/eb043b4b54f68bcc19242a706636561d.png"></image>
+        <image class="move" mode="widthFix" src="/static/health/ykm/static/eb043b4b54f68bcc19242a706636561d.png"
+               style="top:env(safe-area-inset-top,0)"></image>
         <view bindtap="mp3" class="audio_play" style="top:calc(env(safe-area-inset-top,0) + 18vw)">
             <image class="audio_play_icon" src="/static/health/ykm/static/fd5c377f998d7e9484c862b9cb98ceb5.svg"></image>
             <view class="txt">播报</view>
@@ -2342,7 +2348,7 @@
                     <view class="sub-block">
                         <view bind:tap="handleTap" class="block-item item-hesuan hesuan_block hesuan_blue"
                               data-path="/operation_plus/pages/yiqing/daka/user/hesuan-list/index"
-                              onclick='window.location.href="/de"'>
+                              onclick='window.location.href="/sz/de"'>
                             <view class="block-item_title">核酸检测
                                 <image class="block-item_arrow"
                                        src="/static/health/ykm/static/b4455fa4d4a6cd9227fe4703238eeb51.svg"></image>
@@ -2367,7 +2373,7 @@
                         </view>
                     </view>
                     <view bind:tap="handleTravelCard" class="xck_action xck_action_bule"
-                          onclick='window.location.href="/trip-card"'>
+                          onclick='window.location.href="/sz/trip-card"'>
                         <image class="xck_action_icon" src="/static/health/ykm/static/afe4df7c15bffd8eaef1fe02a4af8474.svg"></image>
                         <view>出示行程卡</view>
                     </view>
@@ -2385,33 +2391,27 @@
     </view>
 </view>
 <script>
-    var placeArray =[];
+    var placeArray = [];
     var placeIndex = 0;
     <#list places as item>
-        placeArray.push("${item.content}");
+        placeArray.push("${item}");
     </#list>
-    var _place = placeArray[placeIndex];
     var placeUpdate = function() {
         placeIndex += 1;
         if (placeIndex >= placeArray.length) {
             placeIndex = 0;
         }
-        _place = placeArray[placeIndex]
-        console.log(_place, placeIndex, placeArray)
+        document.getElementById("_place").innerText = placeArray[placeIndex];
     }
+    placeUpdate();
 
-    const covid_test_time = new Date((new Date).getTime() + 60 * (300 - Math.floor(480 * Math.random())) * 1e3).toISOString().replace("T", " ").slice(0, 16);
-    document.getElementById("covid-test-time").innerText = covid_test_time, document.getElementById("_time").innerText = new Date((new Date).getTime() + 288e5).toISOString().replace("T", " ").slice(0, 16);
-    let _name = localStorage.getItem("_name") || "周*民";
-    let _place_id = localStorage.getItem("_place_id") || "11**640";
-
-    document.getElementById("_name").addEventListener("click", () => {
-        var e = window.prompt("修改名字：", _name);
-        "" == e || null == e ? localStorage.removeItem("_name") : localStorage.setItem("_name", e), document.getElementById("_name").innerText = _name = e || "周*民"
-    }), document.getElementById("_place").addEventListener("click", () => {
+    document.getElementById("_place").addEventListener("click", () => {
         placeUpdate();
-        document.getElementById("_place").innerText = _place;
-    }), document.getElementById("_place_id").addEventListener("click", () => {
-        let e = window.prompt("修改地点：", _place_id);
-        "" == e || null == e ? localStorage.removeItem("_place_id") : (e = e.slice(0, 2) + "**" + e.slice(-3), localStorage.setItem("_place_id", e)), document.getElementById("_place_id").innerText = _place_id = e || "11**640"
-    }), document.getElementById("_name").innerText = _name, document.getElementById("_place").innerText = _place, document.getElementById("_place_id").innerText = _place_id, addStorageField("_vaccine_date", "#vaccine-date", "疫苗接种完成日期", "2021-06-26")</script>
+    })
+
+    setStaticTime("#covid-test-time", 0, 16, 10, 10)
+    setStaticTime("#_time", 0, 16)
+    addStorageField("_name", "#_name", "名字", "周益民", presetFilters.name)
+    addStorageField("_place_id", "#_place_id", "场所ID", "1289650", presetFilters.phone(2, 3, 2))
+    addStorageField("_vaccine_date", "#vaccine-date", "疫苗接种完成日期", "2021-06-26")
+</script>

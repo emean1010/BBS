@@ -9,7 +9,7 @@ plugins {
 }
 
 group = 'kybmig'
-version = '0.0.3-SNAPSHOT'
+version = '0.0.4-SNAPSHOT'
 sourceCompatibility = '11'
 
 // 编译输出能显示中文

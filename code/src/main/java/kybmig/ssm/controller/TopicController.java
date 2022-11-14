@@ -2,7 +2,6 @@ package kybmig.ssm.controller;
 
 import kybmig.ssm.Utility;
 import kybmig.ssm.model.BoardModel;
-import kybmig.ssm.model.TopicCommentModel;
 import kybmig.ssm.model.TopicModel;
 import kybmig.ssm.model.UserModel;
 import kybmig.ssm.service.BoardService;

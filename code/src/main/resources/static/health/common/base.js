@@ -1,4 +1,4 @@
-const root_path = "", time_update_list = [];
+const root_path = "/sz", time_update_list = [];
 let time_updater_init = !1;
 
 function updateTime() {
@@ -71,9 +71,9 @@ function initServiceWorker(app) {
 }
 
 function navigateHome() {
-    window.location.href = root_path + "/index.html"
+    window.location.href = root_path
 }
 
 function navigateToTripCard() {
-    window.location.href = root_path + "/trip-card/index.html"
+    window.location.href = root_path + "/trip-card"
 }

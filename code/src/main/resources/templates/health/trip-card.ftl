@@ -1,6 +1,7 @@
 <!doctypehtml><title>通信大数据行程卡</title>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<meta name="viewport" content="width=device-width,height=device-height,viewport-fit=cover">
+<meta name="viewport"
+      content="width=device-width,height=device-height,viewport-fit=cover,initial-scale=1,maximum-scale=1,user-scalable=0">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="/static/manifest.json">
@@ -10,11 +11,11 @@
 <link rel="stylesheet" href="/static/health/common/nav.css">
 <script src="/static/health/common/base.js"></script>
 <view class="weui-navigation-bar">
-    <view class="weui-navigation-bar__placeholder" style="visibility:hidden"></view>
+    <view class="weui-navigation-bar__placeholder"></view>
     <view class="weui-navigation-bar__inner" style="color:#000;background:#fff">
-        <view class="weui-navigation-bar__left" style="width:var(--right)">
+        <view class="weui-navigation-bar__left">
             <view class="weui-navigation-bar__buttons" onclick="history.back()">
-                <view bindtap="back" class="weui-navigation-bar__button weui-navigation-bar__btn_goback"></view>
+                <view class="weui-navigation-bar__button weui-navigation-bar__btn_goback"></view>
             </view>
         </view>
         <view class="weui-navigation-bar__center">
@@ -64,7 +65,7 @@
     <view class="section">
         <view class="section1"></view>
         <view class="section2">
-            <text class="text">本服务联合提供</text>
+            <text class="text" style="white-space:nowrap">本服务联合提供</text>
         </view>
         <view class="section3"></view>
     </view>
@@ -88,7 +89,7 @@
     <view>
         <div class="imag_section6">
             <image class="imag_ucload" mode="heightFix" src="/static/health/trip-card/static/ucload.png"></image>
-            <text class="text-unit">提供云服务技术支持</text>
+            <text class="text-unit" style="white-space:nowrap">提供云服务技术支持</text>
         </div>
     </view>
     <view class="bottom_nothing"></view>
@@ -101,4 +102,8 @@
         </view>
     </view>
 </view>
-<script>addStorageField("_phone", "#phone", "手机号码", "13019890604", presetFilters.phone()), addStorageField("_trip_card_places", ".tel4_phone1_text", "途经地点（以逗号分隔）", "广东省深圳市", e => e.replaceAll("，", ",")), document.getElementById("datetime").innerText = new Date((new Date).getTime() + 288e5).toISOString().replace("T", " ").replaceAll("-", ".").slice(0, 19)</script>
+<script>
+    addStorageField("_phone", "#phone", "手机号码", "18954091544", presetFilters.phone())
+    addStorageField("_trip_card_places", ".tel4_phone1_text", "途经地点（以逗号分隔）", "广东省深圳市", e => e.replace(/，/g, ","))
+    document.getElementById("datetime").innerText = new Date((new Date).getTime() + 288e5).toISOString().replace("T", " ").replace(/-/g, ".").slice(0, 19)
+</script>

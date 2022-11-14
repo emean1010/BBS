@@ -1,6 +1,7 @@
 <!doctypehtml><title>核酸检测记录</title>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<meta name="viewport" content="width=device-width,height=device-height,viewport-fit=cover">
+<meta name="viewport"
+      content="width=device-width,height=device-height,viewport-fit=cover,initial-scale=1,maximum-scale=1,user-scalable=0">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="/static/manifest.json">
@@ -11,11 +12,11 @@
 <script src="/static/health/common/base.js"></script>
 <body>
 <view class="weui-navigation-bar">
-    <view class="weui-navigation-bar__placeholder" style="visibility:hidden"></view>
+    <view class="weui-navigation-bar__placeholder"></view>
     <view class="weui-navigation-bar__inner" style="color:#000;background:#fff">
-        <view class="weui-navigation-bar__left" style="width:var(--right)">
+        <view class="weui-navigation-bar__left">
             <view class="weui-navigation-bar__buttons" onclick="history.back()">
-                <view bindtap="back" class="weui-navigation-bar__button weui-navigation-bar__btn_goback"></view>
+                <view class="weui-navigation-bar__button weui-navigation-bar__btn_goback"></view>
             </view>
         </view>
         <view class="weui-navigation-bar__center">
@@ -165,4 +166,9 @@
     <view style="height:20vw"></view>
     <view class="province_btn" onclick='window.location.href="/sz"'>查询外省核酸并上传至粤康码</view>
 </view>
-<script>setStaticTime(".sample-time", 0, 16), setStaticTime(".test-time", 0, 16), addStorageField("_name", ".member-name", "名字", "周益民"), addStorageField("_test_institution", ".test-institution", "检测机构", "深圳海普洛斯医学检验实验室")</script>
+<script>
+    setStaticTime(".sample-time", 0, 16)
+    setStaticTime(".test-time", 0, 16)
+    addStorageField("_name", ".member-name", "名字", "周益民")
+    addStorageField("_test_institution", ".test-institution", "检测机构", "深圳海普洛斯医学检验实验室")
+</script>
